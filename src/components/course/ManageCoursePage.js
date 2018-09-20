@@ -36,6 +36,9 @@ export class ManageCoursePage extends React.Component {
 	saveCourse(event) {
 		debugger;
 		event.preventDefault();
+		if(!this.courseFormIsValid()){
+			return;
+		}
 		this.setState({saving: true});
 		this.props.actions.saveCourse(this.state.course)
 			.then(() => this.redirect())
@@ -62,6 +65,18 @@ export class ManageCoursePage extends React.Component {
 					saving={this.state.saving}
 					/>
 		);
+	}
+
+	courseFormIsValid() {
+		let formIsValid = true;
+		let errors = {};
+
+		if(this.state.course.title.length < 5 ){
+			errors.title = 'Title must be at least 5 characters.';
+			formIsValid = false;
+		}
+		this.setState({errors});
+		return formIsValid;
 	}
 }
 
@@ -90,7 +105,7 @@ function mapStateToProps(state, ownProps) {
 		course = getCourseById(state.courses, courseId);
 	}
 	const authorsFormattedForDropdown = state.authors.map(author => {
-		debugger;
+
 		return {
 			value: author.id,
 			text: author.firstName + ' ' + author.lastName
