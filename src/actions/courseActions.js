@@ -29,11 +29,11 @@ export function loadCourses(){
 	};
 }
 
-function updateCourseSuccess(course) {
+export function updateCourseSuccess(course) {
 	return {type: types.UPDATE_COURSE_SUCCESS, course};
 }
 
-function createCourseSuccess(course) {
+export function createCourseSuccess(course) {
 	return {type: types.CREATE_COURSE_SUCCESS, course};
 }
 
